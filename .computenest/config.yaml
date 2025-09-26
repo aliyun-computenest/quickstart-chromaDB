@@ -77,6 +77,6 @@ ImageBuilder:
         sudo systemctl enable --now docker.service
       
         cd /root
-        git clone https://github.com/aliyun-computenest/quickstart-couchdb.git
-        cd quickstart-couchdb
+        git clone https://github.com/aliyun-computenest/quickstart-chromaDB.git
+        cd quickstart-chromaDB
         docker compose up -d
