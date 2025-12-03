@@ -61,10 +61,11 @@ Service:
         EnablePrometheus: false
   ServiceType: private
   ServiceInfo:
-    Locale: zh-CN
-    ShortDescription: Chroma 是一个开源的 AI 应用数据库。Chroma 让 LLM 能够轻松构建 LLM 应用，因为它允许 LLM 插入知识、事实和技能。
-    Image: resources/icons/service_logo.png
-    Name: ChromaDB社区版
+    - Locale: zh-CN
+      ShortDescription: Chroma 是一个开源的 AI 应用数据库。Chroma 让 LLM 能够轻松构建 LLM 应用，因为它允许 LLM 插入知识、事实和技能。
+      Image: resources/icons/service_logo.png
+      Name: ChromaDB社区版
+
   ShareType: Public
   ApprovalType: Manual
 Artifact:
