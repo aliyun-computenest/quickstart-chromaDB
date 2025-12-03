@@ -7,47 +7,47 @@ Service:
           ArtifactId: ${Artifact.Artifact_1.ArtifactId}
           ArtifactVersion: ${Artifact.Artifact_1.ArtifactVersion}
       SupplierTemplateConfigs:
-        - Name: 单机版
-          Url: ros_templates/template.yaml
-          PredefinedParameters: []
-          AllowedRegions:
-            - cn-qingdao
-            - cn-beijing
-            - cn-zhangjiakou
-            - cn-huhehaote
-            - cn-wulanchabu
-            - cn-hangzhou
-            - cn-shanghai
-            - cn-shenzhen
-            - cn-heyuan
-            - cn-guangzhou
-            - cn-wuhan-lr
-            - cn-chengdu
-            - cn-hongkong
-            - ap-southeast-1
-    TemplateConfigs:
       - Name: 单机版
         Url: ros_templates/template.yaml
-        AllowedRegions:
-          - cn-qingdao
-          - cn-beijing
-          - cn-zhangjiakou
-          - cn-huhehaote
-          - cn-wulanchabu
-          - cn-hangzhou
-          - cn-shanghai
-          - cn-shenzhen
-          - cn-heyuan
-          - cn-guangzhou
-          - cn-wuhan-lr
-          - cn-chengdu
-          - cn-hongkong
-          - ap-southeast-1
         PredefinedParameters: []
-        DeployScene: ECS
-        OutputConfigs:
-          - OutputKey: __biubiu__
-            EnableWebProxy: false
+        AllowedRegions:
+        - cn-qingdao
+        - cn-beijing
+        - cn-zhangjiakou
+        - cn-huhehaote
+        - cn-wulanchabu
+        - cn-hangzhou
+        - cn-shanghai
+        - cn-shenzhen
+        - cn-heyuan
+        - cn-guangzhou
+        - cn-wuhan-lr
+        - cn-chengdu
+        - cn-hongkong
+        - ap-southeast-1
+    TemplateConfigs:
+    - Name: 单机版
+      Url: ros_templates/template.yaml
+      AllowedRegions:
+      - cn-qingdao
+      - cn-beijing
+      - cn-zhangjiakou
+      - cn-huhehaote
+      - cn-wulanchabu
+      - cn-hangzhou
+      - cn-shanghai
+      - cn-shenzhen
+      - cn-heyuan
+      - cn-guangzhou
+      - cn-wuhan-lr
+      - cn-chengdu
+      - cn-hongkong
+      - ap-southeast-1
+      PredefinedParameters: []
+      DeployScene: ECS
+      OutputConfigs:
+      - OutputKey: __biubiu__
+        EnableWebProxy: false
     NetworkMetadata:
       EnablePrivateVpcConnection: false
       EnableReversePrivateVpcConnection: false
@@ -61,11 +61,14 @@ Service:
         EnablePrometheus: false
   ServiceType: private
   ServiceInfo:
-    - Locale: zh-CN
-      ShortDescription: Chroma 是一个开源的 AI 应用数据库。Chroma 让 LLM 能够轻松构建 LLM 应用，因为它允许 LLM 插入知识、事实和技能。
-      Image: resources/icons/service_logo.png
-      Name: ChromaDB社区版
-
+  - Locale: zh-CN
+    ShortDescription: Chroma 是一个开源的 AI 应用数据库。Chroma 让 LLM 能够轻松构建 LLM 应用，因为它允许 LLM
+      插入知识、事实和技能。
+    Image: resources/icons/service_logo.png
+    Name: ChromaDB社区版
+    Softwares:
+    - Name: chroma
+      Version: v1.3.5
   ShareType: Public
   ApprovalType: Manual
 Artifact:
@@ -85,63 +88,25 @@ ImageBuilder:
     InternetMaxBandwidthOut: 100
     CommandType: RunShellScript
     Timeout: 10800
-    Tags: [ ]
-    CommandContent: |-
-        #!/bin/bash
-        # 升级基础组件：
-        yum check-update
-        yum -y upgrade --security
-        yum -y upgrade-minimal
-
-        # 安装docker-ce（按优先级尝试不同源）
-        echo "尝试使用Docker官方源..."
-        if yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo && yum makecache; then
-            echo "使用Docker官方源成功"
-        else
-            echo "Docker官方源失败，尝试清华大学镜像源..."
-            yum-config-manager --disable docker-ce-stable 2>/dev/null || true
-            if yum-config-manager --add-repo https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/docker-ce.repo && yum makecache; then
-                echo "使用清华大学镜像源成功"
-            else
-                echo "清华镜像源失败，使用阿里云镜像源..."
-                yum-config-manager --disable docker-ce-stable 2>/dev/null || true
-                yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-                yum makecache
-                echo "使用阿里云镜像源"
-            fi
-        fi
-        yum install -y curl git docker-ce
-        mkdir -p /etc/docker/
-        echo '{
-          "default-address-pools": [
-              {
-                  "base": "10.255.0.0/16",
-                  "size": 24
-              }
-          ]
-        }' > /etc/docker/daemon.json
-
-        prefixChinaRegion="cn-"
-        region=$(curl -s http://100.100.100.200/latest/meta-data/region-id)
-
-        if [[ ${region} == ${prefixChinaRegion}* && ${region} != "cn-hongkong" ]]; then
-        echo '{
-            "default-address-pools": [
-                {
-                    "base": "10.255.0.0/16",
-                    "size": 24
-                }
-            ],
-            "registry-mirrors": [
-                "https://mirrors-ssl.aliyuncs.com/"
-            ]
-        }' > /etc/docker/daemon.json
-        fi
-
-        sudo systemctl enable --now docker.socket
-        sudo systemctl enable --now docker.service
-      
-        cd /root
-        git clone https://github.com/aliyun-computenest/quickstart-chromaDB.git
-        cd quickstart-chromaDB
-        docker compose up -d
+    Tags: []
+    CommandContent: "#!/bin/bash\n# 升级基础组件：\nyum check-update\nyum -y upgrade --security\n\
+      yum -y upgrade-minimal\n\n# 安装docker-ce（按优先级尝试不同源）\necho \"尝试使用Docker官方源...\"\
+      \nif yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo\
+      \ && yum makecache; then\n    echo \"使用Docker官方源成功\"\nelse\n    echo \"Docker官方源失败，尝试清华大学镜像源...\"\
+      \n    yum-config-manager --disable docker-ce-stable 2>/dev/null || true\n  \
+      \  if yum-config-manager --add-repo https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/docker-ce.repo\
+      \ && yum makecache; then\n        echo \"使用清华大学镜像源成功\"\n    else\n        echo\
+      \ \"清华镜像源失败，使用阿里云镜像源...\"\n        yum-config-manager --disable docker-ce-stable\
+      \ 2>/dev/null || true\n        yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo\n\
+      \        yum makecache\n        echo \"使用阿里云镜像源\"\n    fi\nfi\nyum install -y\
+      \ curl git docker-ce\nmkdir -p /etc/docker/\necho '{\n  \"default-address-pools\"\
+      : [\n      {\n          \"base\": \"10.255.0.0/16\",\n          \"size\": 24\n\
+      \      }\n  ]\n}' > /etc/docker/daemon.json\n\nprefixChinaRegion=\"cn-\"\nregion=$(curl\
+      \ -s http://100.100.100.200/latest/meta-data/region-id)\n\nif [[ ${region} ==\
+      \ ${prefixChinaRegion}* && ${region} != \"cn-hongkong\" ]]; then\necho '{\n\
+      \    \"default-address-pools\": [\n        {\n            \"base\": \"10.255.0.0/16\"\
+      ,\n            \"size\": 24\n        }\n    ],\n    \"registry-mirrors\": [\n\
+      \        \"https://mirrors-ssl.aliyuncs.com/\"\n    ]\n}' > /etc/docker/daemon.json\n\
+      fi\n\nsudo systemctl enable --now docker.socket\nsudo systemctl enable --now\
+      \ docker.service\n\ncd /root\ngit clone https://github.com/aliyun-computenest/quickstart-chromaDB.git\n\
+      cd quickstart-chromaDB\ndocker compose up -d"
