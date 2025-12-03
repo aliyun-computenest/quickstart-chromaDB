@@ -93,9 +93,23 @@ ImageBuilder:
         yum -y upgrade --security
         yum -y upgrade-minimal
 
-        # 安装docker-ce
-        yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-        yum makecache
+        # 安装docker-ce（按优先级尝试不同源）
+        echo "尝试使用Docker官方源..."
+        if yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo && yum makecache; then
+            echo "使用Docker官方源成功"
+        else
+            echo "Docker官方源失败，尝试清华大学镜像源..."
+            yum-config-manager --disable docker-ce-stable 2>/dev/null || true
+            if yum-config-manager --add-repo https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/docker-ce.repo && yum makecache; then
+                echo "使用清华大学镜像源成功"
+            else
+                echo "清华镜像源失败，使用阿里云镜像源..."
+                yum-config-manager --disable docker-ce-stable 2>/dev/null || true
+                yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+                yum makecache
+                echo "使用阿里云镜像源"
+            fi
+        fi
         yum install -y curl git docker-ce
         mkdir -p /etc/docker/
         echo '{
