@@ -10,6 +10,32 @@ Service:
       - Name: 单机版
         Url: ros_templates/template.yaml
         PredefinedParameters: []
+        AllowedRegions:
+        - ap-southeast-1
+        - cn-hangzhou
+        - cn-huhehaote
+        - cn-shanghai
+        - cn-qingdao
+        - cn-beijing
+        - cn-zhangjiakou
+        - cn-wulanchabu
+        - cn-shenzhen
+        - cn-heyuan
+        - cn-guangzhou
+        - cn-chengdu
+        - cn-hongkong
+        - ap-southeast-3
+        - ap-southeast-5
+        - ap-southeast-6
+        - ap-southeast-7
+        - ap-northeast-1
+        - ap-northeast-2
+        - eu-central-1
+        - eu-west-1
+        - us-west-1
+        - us-east-1
+        - me-central-1
+        - me-east-1
     TemplateConfigs:
     - Name: 单机版
       Url: ros_templates/template.yaml
@@ -32,8 +58,7 @@ Service:
   ServiceType: private
   ServiceInfo:
   - Locale: zh-CN
-    ShortDescription: Chroma 是一个开源的 AI 应用数据库。Chroma 让 LLM 能够轻松构建 LLM 应用，因为它允许 
-      LLM 插入知识、事实和技能。
+    ShortDescription: Chroma 是一个开源的 AI 应用数据库。Chroma 让 LLM 能够轻松构建 LLM 应用，因为它允许 LLM 插入知识、事实和技能。
     Image: resources/icons/service_logo.png
     Name: ChromaDB社区版
     Softwares:
