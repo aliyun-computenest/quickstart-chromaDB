@@ -4,8 +4,8 @@ Service:
     SupplierDeployMetadata:
       ArtifactRelation:
         centos_7_9_x64_20G_alibase_20240403.vhd:
-          ArtifactId: ${Artifact.Artifact_1.ArtifactId}
-          ArtifactVersion: ${Artifact.Artifact_1.ArtifactVersion}
+          ArtifactId: ${Artifact.EcsImage.ArtifactId}
+          ArtifactVersion: draft
       SupplierTemplateConfigs:
       - Name: 单机版
         Url: ros_templates/template.yaml
@@ -72,24 +72,21 @@ Service:
   ShareType: Public
   ApprovalType: Manual
 Artifact:
-  Artifact_1:
+  EcsImage:
     ArtifactType: EcsImage
     ArtifactName: chromadb
-    Description: chromadb
-    ArtifactProperty:
-      RegionId: ${ImageBuilder.EcsImage.RegionId}
-      ImageId: ${ImageBuilder.EcsImage.SourceImageId}
-ImageBuilder:
-  EcsImage:
-    RegionId: ap-southeast-1
-    SourceImageId: aliyun_3_x64_20G_alibase_20240819.vhd
-    SystemDiskSize: 40
-    InstanceType: ecs.u1-c1m2.xlarge
-    InternetMaxBandwidthOut: 100
-    CommandType: RunShellScript
-    Timeout: 10800
-    Tags: []
-    CommandContent: "#!/bin/bash\n# 升级基础组件：\nyum check-update\nyum -y upgrade --security\n\
+    Description: quickstart-chromaDB EcsImage
+    SupportRegionIds:
+        - ap-southeast-1
+    ArtifactBuildProperty:
+      CodeRepo:
+        Platform: github
+        Owner: LYH-RAIN
+        RepoName: aliyun-computenest/quickstart-chromaDB
+        Branch: main
+      RegionId: ap-southeast-1
+      CommandType: RunShellScript
+      CommandContent: "#!/bin/bash\n# 升级基础组件：\nyum check-update\nyum -y upgrade --security\n\
       yum -y upgrade-minimal\n\n# 安装docker-ce（按优先级尝试不同源）\necho \"尝试使用Docker官方源...\"\
       \nif yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
       && yum makecache; then\n    echo \"使用Docker官方源成功\"\nelse\n    echo \"Docker官方源失败，尝试清华大学镜像源...\"\
