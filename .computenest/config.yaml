@@ -39,6 +39,8 @@ Service:
     TemplateConfigs:
     - Name: 单机版
       Url: ros_templates/template.yaml
+      AllowedRegions:
+      - ap-southeast-1
       PredefinedParameters: []
       DeployScene: ECS
       OutputConfigs:
