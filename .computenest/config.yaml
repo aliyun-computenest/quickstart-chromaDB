@@ -83,8 +83,7 @@ Artifact:
         Branch: main
       RegionId: ap-southeast-1
       CommandType: RunShellScript
-      CommandContent: "#!/bin/bash\n# 升级基础组件：\nyum check-update\nyum -y upgrade --security\n\
-      yum -y upgrade-minimal\n\n# 安装docker-ce（按优先级尝试不同源）\necho \"尝试使用Docker官方源...\"\
+      CommandContent: "#!/bin/bash\n# 安装docker-ce（按优先级尝试不同源）\necho \"尝试使用Docker官方源...\"\
       \nif yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
       && yum makecache; then\n    echo \"使用Docker官方源成功\"\nelse\n    echo \"Docker官方源失败，尝试清华大学镜像源...\"\
       \n    yum-config-manager --disable docker-ce-stable 2>/dev/null || true\n  \
