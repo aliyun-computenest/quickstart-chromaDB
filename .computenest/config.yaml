@@ -10,39 +10,9 @@ Service:
       - Name: 单机版
         Url: ros_templates/template.yaml
         PredefinedParameters: []
-        AllowedRegions:
-        - cn-qingdao
-        - cn-beijing
-        - cn-zhangjiakou
-        - cn-huhehaote
-        - cn-wulanchabu
-        - cn-hangzhou
-        - cn-shanghai
-        - cn-shenzhen
-        - cn-heyuan
-        - cn-guangzhou
-        - cn-wuhan-lr
-        - cn-chengdu
-        - cn-hongkong
-        - ap-southeast-1
     TemplateConfigs:
     - Name: 单机版
       Url: ros_templates/template.yaml
-      AllowedRegions:
-      - cn-qingdao
-      - cn-beijing
-      - cn-zhangjiakou
-      - cn-huhehaote
-      - cn-wulanchabu
-      - cn-hangzhou
-      - cn-shanghai
-      - cn-shenzhen
-      - cn-heyuan
-      - cn-guangzhou
-      - cn-wuhan-lr
-      - cn-chengdu
-      - cn-hongkong
-      - ap-southeast-1
       PredefinedParameters: []
       DeployScene: ECS
       OutputConfigs:
@@ -77,7 +47,7 @@ Artifact:
     ArtifactName: chromadb
     Description: quickstart-chromaDB EcsImage
     SupportRegionIds:
-        - ap-southeast-1
+    - ap-southeast-1
     ArtifactBuildProperty:
       CodeRepo:
         Platform: github
