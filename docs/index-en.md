@@ -1,8 +1,8 @@
-##🌟Service Introduction
+##🌟Service Overview
 
 Chroma is an open source AI application database. Chroma makes it easy for LLM to build LLM applications because it allows LLM to insert knowledge, facts, and skills.
 
-##💰Billing Description
+##💰Billing Instructions
 
 The cost of deploying Chroma Community Edition in Compute Nest mainly involves:
 
@@ -10,7 +10,7 @@ The cost of deploying Chroma Community Edition in Compute Nest mainly involves:
 -System disk type and capacity
 -public network bandwidth
 
-##🚀Deployment Process
+##🚀Deployment process
 
 1. Visit the Computing Nest ChromaDB Community Edition [Deployment Link](https://computenest.console.aliyun.com/service/instance/create/cn-hangzhou?type=user&ServiceId=service-b9096ffacaa744e1a488) and fill in the deployment parameters as prompted:
 ![image.png](images-en/img.png)
@@ -25,6 +25,6 @@ The cost of deploying Chroma Community Edition in Compute Nest mainly involves:
 5. Click on the service address and use the ChromaDB Community Edition.
 ![image.png](images-en/img_2.png)
 
-#📚Guidelines for use
+#📚User Guide
 
 For more use, please refer to the ChromaDB [official website document](https://docs.trychroma.com/docs/overview/introduction).
